@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cart Display</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js"></script>
+  </head>
+  <body>
+    <h2>Shopping Cart</h2>
+    <ul id="cart"></ul>
+
+    <script>
+      const socket = io("http://192.168.100.255:5000"); // Connect to WebSocket server
+
+      socket.on("cart_update", (items) => {
+        updateCart(items);
+      });
+
+      function updateCart(items) {
+        const cartList = document.getElementById("cart");
+        cartList.innerHTML = "";
+        items.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          cartList.appendChild(li);
+        });
+      }
+    </script>
+  </body>
+</html>

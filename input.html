@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Input Client</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js"></script>
+  </head>
+  <body>
+    <h2>Add Items to Cart</h2>
+    <input type="text" id="item" placeholder="Enter item" />
+    <button onclick="addItem()">Add to Cart</button>
+
+    <script>
+      var socket = io("https://online-server-klsx.onrender.com");
+      // Connect to WebSocket server
+
+      socket.on("connect", () => console.log("Connected to server"));
+
+      function addItem() {
+        const item = document.getElementById("item").value;
+        if (item) {
+          socket.emit("add_item", { item }); // Send item to server
+          document.getElementById("item").value = ""; // Clear input
+          document.getElementById("item").focus();
+        }
+      }
+    </script>
+  </body>
+</html>
