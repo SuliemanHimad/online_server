@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_socketio import SocketIO, emit
+import os  # Import os module to get Render's assigned port
 
 print("Starting server...")  # Debugging statement
 
@@ -27,4 +28,5 @@ def handle_disconnect():
     print('A client disconnected')
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5000)
+    port = int(os.environ.get("PORT", 5000))  # Use Render's dynamic port
+    socketio.run(app, host='0.0.0.0', port=port)
